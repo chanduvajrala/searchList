@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 export default React.forwardRef((props, ref) => {
   const classes = useStyles();
 
-  const { data, cursor, onMouseOver } = props;
+  const { data, cursor, onMouseOver, value } = props;
   function noUsersFound() {
     return (
       <Typography variant="h4"> {"No user found"} </Typography>
@@ -34,6 +34,7 @@ export default React.forwardRef((props, ref) => {
                 index={i}
                 active={cursor === i}
                 onMouseOver={onMouseOver}
+                value={value}
                 {...item}/>);
           })}
         </List> ) : noUsersFound()}

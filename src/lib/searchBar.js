@@ -11,14 +11,14 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function SearchBar({ onChange, value, onKeyDown }) {
+export default function SearchBar({ onChange, value, onKeyUp }) {
   const classes = useStyles();
   return (
     <TextField id="search" label="Search Users by ID, Address, Name" 
         variant="filled"
         value={value}
         onChange={onChange}
-        onKeyDown={onKeyDown}
+        onKeyUp={onKeyUp}
         className={classes.textField}
     />
   );

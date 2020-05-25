@@ -18,8 +18,8 @@ function App() {
   const {value, onChange: onChangeValue} = inputState("");
   
   const onChangeSearchText = event => {
-    const results = data.filter(item => search(item, value))
     onChangeValue(event);
+    const results = data.filter(item => search(item, value))
     setCursor(0);
     setItems(results);
   }
@@ -28,7 +28,7 @@ function App() {
     setCursor(i);
   }
 
-  const handleKeyDown = e => {
+  const handleKeyUp = e => {
     if(e.keyCode === 38 && cursor > 0){
       // console.log("cursor" + cursor);
       setCursor(cursor - 1);
@@ -43,10 +43,10 @@ function App() {
 
   return (
     <div className="App">
-      <SearchBar value={value} onKeyDown={handleKeyDown} onChange={onChangeSearchText} />
+      <SearchBar value={value} onKeyUp={handleKeyUp} onChange={onChangeSearchText} />
       {
         value.length > 0 ? 
-        (<SearchList data={items} cursor= {cursor} ref = {ref.current} onMouseOver = {handleMouseHover}/>)
+        (<SearchList data={items} value={value} cursor= {cursor} ref = {ref.current} onMouseOver = {handleMouseHover}/>)
         : null
       }
     </div>
@@ -56,10 +56,10 @@ function App() {
 function search(item, query) {
   return (
     item.id.includes(query) ||
-    item.id.split("-").join("").includes(query) ||
     item.name.toLowerCase().includes(query.toLowerCase()) ||
     item.address.toLowerCase().includes(query.toLowerCase()) ||
-    item.pincode.includes(query)
+    item.pincode.includes(query) ||
+    item.items.join().includes(query)
   );
 }
 
